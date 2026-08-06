@@ -1,0 +1,161 @@
+//
+//  AttivaView.swift
+//  Fovea — By D.S.
+//
+//  La pagina ATTIVA. Un'app iOS non può accendere da sola la propria
+//  estensione Safari: non esiste API, né su iPhone né su iPad. Quello che
+//  può fare — e qui fa — è portarti al posto giusto in tre passi e poi
+//  accorgersi da sola quando è fatta.
+//
+//  Il rilevamento passa da un App Group: la prima volta che Safari carica
+//  l'estensione, l'handler nativo scrive un timestamp nella suite condivisa.
+//  L'app lo legge. Nessuna finzione, nessun "presumo di sì".
+//
+
+import SwiftUI
+
+enum Ponte {
+    static let gruppo = "group.com.byds.fovea"
+    static let chiave = "estensione.ultimoAvvio"
+
+    static var estensioneVista: Date? {
+        UserDefaults(suiteName: gruppo)?
+            .object(forKey: chiave) as? Date
+    }
+}
+
+struct AttivaView: View {
+
+    @Environment(\.dismiss) private var dismiss
+    @State private var vista: Date? = Ponte.estensioneVista
+    @State private var battito = false
+
+    private var attiva: Bool { vista != nil }
+
+    var body: some View {
+        ZStack {
+            Ink.base.ignoresSafeArea()
+
+            VStack(spacing: 0) {
+                Spacer(minLength: 20)
+                stemma
+                Spacer(minLength: 28)
+
+                if attiva { conferma } else { passi }
+
+                Spacer()
+                chiudi
+            }
+            .padding(.horizontal, 28)
+        }
+        .onAppear { ricontrolla() }
+        // Al rientro da Impostazioni la risposta è cambiata: ricontrolla.
+        .onReceive(NotificationCenter.default.publisher(
+            for: UIApplication.willEnterForegroundNotification)) { _ in
+            ricontrolla()
+        }
+    }
+
+    // MARK: Stemma
+
+    private var stemma: some View {
+        VStack(spacing: 18) {
+            ZStack {
+                Circle()
+                    .stroke(attiva ? Ink.brass : Ink.muted.opacity(0.35), lineWidth: 2)
+                    .frame(width: 132, height: 132)
+                    .scaleEffect(battito ? 1.06 : 1)
+                Image(systemName: attiva ? "checkmark" : "power")
+                    .font(.system(size: 44, weight: .light))
+                    .foregroundStyle(attiva ? Ink.brass : Ink.muted)
+            }
+            .animation(.easeInOut(duration: 1.4).repeatForever(autoreverses: true),
+                       value: battito)
+
+            Text(attiva ? "ATTIVA" : "DA ATTIVARE")
+                .font(.system(size: 13, weight: .medium, design: .monospaced))
+                .tracking(4)
+                .foregroundStyle(attiva ? Ink.brass : Ink.muted)
+        }
+        .onAppear { if !attiva { battito = true } }
+    }
+
+    // MARK: Stati
+
+    private var conferma: some View {
+        VStack(spacing: 12) {
+            Text("Fovea copre tutti i siti in Safari")
+                .font(.pageTitle(19))
+                .multilineTextAlignment(.center)
+                .foregroundStyle(Ink.paper)
+            Text("Su ogni sito nuovo tocca una volta il pallino d'ottone in basso a destra: iOS chiede lì il permesso ai sensori. Un secondo tocco ritara la posizione in chiaro.")
+                .font(.page(14))
+                .multilineTextAlignment(.center)
+                .lineSpacing(4)
+                .foregroundStyle(Ink.muted)
+        }
+    }
+
+    private var passi: some View {
+        VStack(alignment: .leading, spacing: 22) {
+            passo(1, "Impostazioni", "App › Safari › Estensioni › Fovea")
+            passo(2, "Accendi Fovea", "e concedi l'accesso a Tutti i siti web")
+            passo(3, "Torna qui", "questa pagina se ne accorge da sola")
+
+            Button {
+                apriImpostazioni()
+            } label: {
+                Text("Apri Impostazioni")
+                    .font(.signal)
+                    .tracking(1.6)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 15)
+                    .background(Capsule().fill(Ink.brass))
+                    .foregroundStyle(Ink.deep)
+            }
+            .padding(.top, 6)
+        }
+    }
+
+    private func passo(_ n: Int, _ titolo: String, _ nota: String) -> some View {
+        HStack(alignment: .top, spacing: 16) {
+            // La numerazione qui serve: è una sequenza vera, l'ordine conta.
+            Text("\(n)")
+                .font(.system(size: 12, weight: .medium, design: .monospaced))
+                .foregroundStyle(Ink.brass)
+                .frame(width: 22, height: 22)
+                .overlay(Circle().stroke(Ink.brass.opacity(0.4), lineWidth: 1))
+            VStack(alignment: .leading, spacing: 3) {
+                Text(titolo)
+                    .font(.pageTitle(16))
+                    .foregroundStyle(Ink.paper)
+                Text(nota)
+                    .font(.page(13))
+                    .foregroundStyle(Ink.muted)
+            }
+            Spacer()
+        }
+    }
+
+    private var chiudi: some View {
+        Button("Chiudi") { dismiss() }
+            .font(.signal)
+            .tracking(1.4)
+            .foregroundStyle(Ink.muted)
+            .padding(.vertical, 24)
+    }
+
+    // MARK: Azioni
+
+    private func ricontrolla() {
+        withAnimation(.easeOut(duration: 0.3)) {
+            vista = Ponte.estensioneVista
+        }
+        if vista != nil { battito = false }
+    }
+
+    private func apriImpostazioni() {
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+        UIApplication.shared.open(url)
+    }
+}

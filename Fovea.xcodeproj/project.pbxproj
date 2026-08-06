@@ -1,0 +1,296 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CE08356C489C32689753ECDE /* FoveaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9215247DCEE28799781FEABB /* FoveaApp.swift */; };
+		1B689EE25843B1268818183F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8643EDBC2C5AB1933A6E168 /* HomeView.swift */; };
+		F43EAF0DCF926A30D60EBF88 /* ReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4429419DDD623A432BB9057F /* ReaderView.swift */; };
+		4E025A3495C321570FB24DA6 /* AttivaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E84239EC9C574CA80B8A7F0 /* AttivaView.swift */; };
+		3279970749024F4F54EFD61A /* Soglia.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1EA2A7E1191C7B7F906B51 /* Soglia.swift */; };
+		726A3F513FBB39FD9D5FBC31 /* Trama.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4325A616BD9BF9BE841D7492 /* Trama.swift */; };
+		A96945A3120FDE6F12CDDC2F /* TiltPrivacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265BC16D7A47D608469748F8 /* TiltPrivacy.swift */; };
+		8F1A787F54E0AD56E75D1009 /* SpotReveal.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB337FF85954244A9F17951 /* SpotReveal.swift */; };
+		7394DF7881C806A6C266ACD7 /* PrivacyGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D6E1D8700958BEC5C124DB /* PrivacyGuard.swift */; };
+		B49FC159CF9A40F46D82CA2E /* NoteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5007B96B6B7C12F4CA1BEA3B /* NoteStore.swift */; };
+		10F2B3A80F3E2474B510EB42 /* Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29862951D57D51FFAADD9FE /* Design.swift */; };
+		F98054F2C87DFBA3C1256F8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E302583639841BB88528CF6 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3954DF05185AAFA2BAC869C0 /* Fovea.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fovea.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9215247DCEE28799781FEABB /* FoveaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoveaApp.swift; sourceTree = "<group>"; };
+		E8643EDBC2C5AB1933A6E168 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		4429419DDD623A432BB9057F /* ReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderView.swift; sourceTree = "<group>"; };
+		4E84239EC9C574CA80B8A7F0 /* AttivaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttivaView.swift; sourceTree = "<group>"; };
+		FE1EA2A7E1191C7B7F906B51 /* Soglia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Soglia.swift; sourceTree = "<group>"; };
+		4325A616BD9BF9BE841D7492 /* Trama.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trama.swift; sourceTree = "<group>"; };
+		265BC16D7A47D608469748F8 /* TiltPrivacy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiltPrivacy.swift; sourceTree = "<group>"; };
+		ABB337FF85954244A9F17951 /* SpotReveal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotReveal.swift; sourceTree = "<group>"; };
+		61D6E1D8700958BEC5C124DB /* PrivacyGuard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyGuard.swift; sourceTree = "<group>"; };
+		5007B96B6B7C12F4CA1BEA3B /* NoteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteStore.swift; sourceTree = "<group>"; };
+		E29862951D57D51FFAADD9FE /* Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Design.swift; sourceTree = "<group>"; };
+		0E302583639841BB88528CF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		007566D1E9B441A02F851689 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		924E8C74B80AF3A02234AD58 = {
+			isa = PBXGroup;
+			children = (
+				8600A71FDAC9B68623EA7A29 /* Fovea */,
+				37F299C4798174BD8E3CA5A9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8600A71FDAC9B68623EA7A29 /* Fovea */ = {
+			isa = PBXGroup;
+			children = (
+				9215247DCEE28799781FEABB /* FoveaApp.swift */,
+				E8643EDBC2C5AB1933A6E168 /* HomeView.swift */,
+				4429419DDD623A432BB9057F /* ReaderView.swift */,
+				4E84239EC9C574CA80B8A7F0 /* AttivaView.swift */,
+				FE1EA2A7E1191C7B7F906B51 /* Soglia.swift */,
+				4325A616BD9BF9BE841D7492 /* Trama.swift */,
+				265BC16D7A47D608469748F8 /* TiltPrivacy.swift */,
+				ABB337FF85954244A9F17951 /* SpotReveal.swift */,
+				61D6E1D8700958BEC5C124DB /* PrivacyGuard.swift */,
+				5007B96B6B7C12F4CA1BEA3B /* NoteStore.swift */,
+				E29862951D57D51FFAADD9FE /* Design.swift */,
+				0E302583639841BB88528CF6 /* Assets.xcassets */,
+			);
+			path = Fovea;
+			sourceTree = "<group>";
+		};
+		37F299C4798174BD8E3CA5A9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3954DF05185AAFA2BAC869C0 /* Fovea.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6B58A0B900EBA26624333F26 /* Fovea */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 46B67DAD5B3EC878B151B6A7 /* Build configuration list for PBXNativeTarget "Fovea" */;
+			buildPhases = (
+				DB381241C0C1150066FCD29C /* Sources */,
+				007566D1E9B441A02F851689 /* Frameworks */,
+				82ABD9E5E67A4564DF2E4789 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Fovea;
+			productName = Fovea;
+			productReference = 3954DF05185AAFA2BAC869C0 /* Fovea.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7DD0BD45E52B24958659F9B2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1720;
+				LastUpgradeCheck = 1720;
+				TargetAttributes = {
+					6B58A0B900EBA26624333F26 = {
+						CreatedOnToolsVersion = 17.2;
+					};
+				};
+			};
+			buildConfigurationList = 4740AD537A7CF45568EC8BC5 /* Build configuration list for PBXProject "Fovea" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = it;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				it,
+				Base,
+			);
+			mainGroup = 924E8C74B80AF3A02234AD58;
+			productRefGroup = 37F299C4798174BD8E3CA5A9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6B58A0B900EBA26624333F26 /* Fovea */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		82ABD9E5E67A4564DF2E4789 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F98054F2C87DFBA3C1256F8E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DB381241C0C1150066FCD29C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE08356C489C32689753ECDE /* FoveaApp.swift in Sources */,
+				1B689EE25843B1268818183F /* HomeView.swift in Sources */,
+				F43EAF0DCF926A30D60EBF88 /* ReaderView.swift in Sources */,
+				4E025A3495C321570FB24DA6 /* AttivaView.swift in Sources */,
+				3279970749024F4F54EFD61A /* Soglia.swift in Sources */,
+				726A3F513FBB39FD9D5FBC31 /* Trama.swift in Sources */,
+				A96945A3120FDE6F12CDDC2F /* TiltPrivacy.swift in Sources */,
+				8F1A787F54E0AD56E75D1009 /* SpotReveal.swift in Sources */,
+				7394DF7881C806A6C266ACD7 /* PrivacyGuard.swift in Sources */,
+				B49FC159CF9A40F46D82CA2E /* NoteStore.swift in Sources */,
+				10F2B3A80F3E2474B510EB42 /* Design.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		3CA533B013E0724B04E0C5AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A839AE413280FA582DB77E22 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		61E7612872E76CC11D771F7A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+				DEVELOPMENT_TEAM = S6C4FQLMT5;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Fovea;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Fovea usa la fotocamera frontale solo per accorgersi se una seconda persona sta guardando lo schermo e coprire subito il testo. Le immagini non vengono mai salvate, né inviate, né mostrate.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.byds.fovea;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		CF1FC760861BEB856A5B2791 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+				DEVELOPMENT_TEAM = S6C4FQLMT5;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Fovea;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Fovea usa la fotocamera frontale solo per accorgersi se una seconda persona sta guardando lo schermo e coprire subito il testo. Le immagini non vengono mai salvate, né inviate, né mostrate.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.byds.fovea;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4740AD537A7CF45568EC8BC5 /* Build configuration list for PBXProject "Fovea" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3CA533B013E0724B04E0C5AA /* Debug */,
+				A839AE413280FA582DB77E22 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		46B67DAD5B3EC878B151B6A7 /* Build configuration list for PBXNativeTarget "Fovea" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61E7612872E76CC11D771F7A /* Debug */,
+				CF1FC760861BEB856A5B2791 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7DD0BD45E52B24958659F9B2 /* Project object */;
+}

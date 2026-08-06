@@ -1,0 +1,51 @@
+/* fovea.css — By D.S.
+   Un solo strato sopra la pagina. Niente regole che tocchino il sito:
+   qualsiasi selettore in più rischierebbe di rompere layout altrui. */
+
+.fovea-strato {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483646;      /* uno sotto il pulsante */
+  pointer-events: none;      /* la pagina resta usabile sotto */
+  opacity: 0;
+  background: rgba(8, 9, 12, 0);
+  transition: opacity 140ms ease-out;
+  will-change: backdrop-filter, opacity;
+}
+
+.fovea-innesco {
+  position: fixed;
+  right: 14px;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  z-index: 2147483647;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 162, 74, 0.55);
+  background: rgba(16, 18, 22, 0.72);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+/* Il pallino è spento finché i sensori non sono autorizzati: lo stato
+   della protezione deve essere leggibile a colpo d'occhio, non indovinato. */
+.fovea-innesco.fovea-acceso {
+  background: rgba(200, 162, 74, 0.9);
+  border-color: rgba(200, 162, 74, 0.9);
+}
+
+.fovea-innesco.fovea-tarato { transform: scale(0.82); }
+
+.fovea-innesco.fovea-negato {
+  border-color: rgba(140, 146, 156, 0.5);
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fovea-strato, .fovea-innesco { transition: none; }
+}

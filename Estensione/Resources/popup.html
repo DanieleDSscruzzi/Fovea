@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0; padding: 18px 20px 22px;
+    width: 250px;
+    background: #16181D;
+    color: #E8E6E1;
+    font: 15px/1.4 ui-serif, Georgia, serif;
+  }
+  h1 { margin: 0 0 3px; font-size: 17px; font-weight: 600; }
+  .marchio {
+    font: 500 9px/1 ui-monospace, monospace;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    color: #7A8089; margin-bottom: 18px;
+  }
+  label {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 11px 0;
+    border-bottom: 1px solid rgba(122,128,137,0.16);
+  }
+  label:last-of-type { border-bottom: none; }
+  .nome { font-size: 15px; }
+  .nota { display: block; font-size: 12px; color: #7A8089; margin-top: 2px; }
+  input[type=checkbox] { accent-color: #C8A24A; width: 19px; height: 19px; flex: none; }
+  input[type=range] { accent-color: #C8A24A; flex: none; }
+  p.coda {
+    margin: 16px 0 0; font-size: 12px; line-height: 1.5; color: #7A8089;
+  }
+</style>
+</head>
+<body>
+  <h1>Fovea</h1>
+  <div class="marchio">By D.S.</div>
+
+  <label>
+    <span class="nome">Angolo
+      <span class="nota">Si copre quando inclini</span>
+    </span>
+    <input type="checkbox" id="angolo">
+  </label>
+
+  <label>
+    <span class="nome">Lente
+      <span class="nota">Nitido solo sotto il dito</span>
+    </span>
+    <input type="checkbox" id="lente">
+  </label>
+
+  <label>
+    <span class="nome">Soglia
+      <span class="nota">Contrasto al minimo leggibile</span>
+    </span>
+    <input type="range" id="soglia" min="0" max="100" step="5" style="width:96px">
+  </label>
+
+  <p class="coda">Su ogni sito nuovo tocca una volta il pallino in basso a
+  destra: iOS chiede lì il permesso ai sensori di movimento. Un secondo
+  tocco ritara la posizione in chiaro.</p>
+
+  <script src="popup.js"></script>
+</body>
+</html>
