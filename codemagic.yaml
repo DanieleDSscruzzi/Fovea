@@ -1,5 +1,4 @@
 workflows:
-
   fovea-testflight:
     name: Fovea — TestFlight
     instance_type: mac_mini_m2
@@ -9,10 +8,10 @@ workflows:
       app_store_connect: FoveaASC
 
     environment:
-      xcode: latest
+      xcode: 26.4
       vars:
-        XCODE_PROJECT: "Fovea.xcodeproj"
-        XCODE_SCHEME: "Fovea"
+        BUNDLE_ID: "com.byds.fovea"
+        TEAM_ID: "S6C4FQLMT5"
         APP_STORE_APP_ID: 6798842299
 
     triggering:
@@ -25,47 +24,60 @@ workflows:
 
     scripts:
 
-      - name: Certificato e profili
+      - name: Certificato e profilo
         script: |
-          app-store-connect create-certificate --type IOS_DISTRIBUTION \
-            --save 2>/dev/null || echo "certificato gia presente"
-          app-store-connect fetch-signing-files "com.byds.fovea" \
-            --platform IOS \
-            --type IOS_APP_STORE \
-            --create
-          echo "=== PROFILI SCARICATI ==="
-          ls -la ~/Library/MobileDevice/Provisioning\\ Profiles/ || echo "NESSUN PROFILO"
-          echo "=== CERTIFICATI ==="
-          app-store-connect list-certificates --type IOS_DISTRIBUTION
+          set -e
+          app-store-connect create-certificate --type IOS_DISTRIBUTION --save \
+            || echo "certificato gia presente"
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --platform IOS --type IOS_APP_STORE --create
           keychain initialize
           keychain add-certificates
-          xcode-project use-profiles
+          echo "=== PROFILI PRESENTI ==="
+          ls -1 ~/Library/MobileDevice/Provisioning\ Profiles/ || echo "NESSUNO"
 
-      - name: Numero di build
+      - name: Archivio firmato a mano
         script: |
-          ULTIMO=$(app-store-connect get-latest-testflight-build-number \
-                    "$APP_STORE_APP_ID" 2>/dev/null || echo 0)
-          echo "ultimo su TestFlight: $ULTIMO"
-          agvtool new-version -all $(($ULTIMO + 1))
+          set -e
+          PROF=$(ls ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision | head -1)
+          NOME=$(security cms -D -i "$PROF" | plutil -extract Name raw -)
+          echo "=== USO IL PROFILO: $NOME ==="
 
-      - name: Archivio e ipa
-        script: |
-          xcode-project build-ipa \
-            --project "$XCODE_PROJECT" \
-            --scheme "$XCODE_SCHEME"
+          xcodebuild -project Fovea.xcodeproj \
+            -scheme Fovea \
+            -configuration Release \
+            -archivePath build/Fovea.xcarchive \
+            -destination "generic/platform=iOS" \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM="$TEAM_ID" \
+            CODE_SIGN_IDENTITY="Apple Distribution" \
+            PROVISIONING_PROFILE_SPECIFIER="$NOME" \
+            archive
+
+          cat > export.plist << PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <plist version="1.0"><dict>
+            <key>method</key><string>app-store-connect</string>
+            <key>teamID</key><string>$TEAM_ID</string>
+            <key>signingStyle</key><string>manual</string>
+            <key>provisioningProfiles</key>
+            <dict><key>$BUNDLE_ID</key><string>$NOME</string></dict>
+          </dict></plist>
+PLIST
+          sed -i '' 's/^          //' export.plist
+
+          xcodebuild -exportArchive \
+            -archivePath build/Fovea.xcarchive \
+            -exportPath build/ios/ipa \
+            -exportOptionsPlist export.plist
 
     artifacts:
       - build/ios/ipa/*.ipa
-      - /tmp/xcodebuild_logs/*.log
 
     publishing:
       app_store_connect:
         auth: integration
         submit_to_testflight: true
-
       email:
         recipients:
           - superdanipro2020@gmail.com
-        notify:
-          success: true
-          failure: true
