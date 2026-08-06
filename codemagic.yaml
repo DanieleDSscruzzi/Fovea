@@ -27,7 +27,10 @@ workflows:
 
       - name: Certificato e profili
         script: |
+          app-store-connect create-certificate --type IOS_DISTRIBUTION \
+            --save 2>/dev/null || echo "certificato gia presente"
           app-store-connect fetch-signing-files "com.byds.fovea" \
+            --platform IOS \
             --type IOS_APP_STORE \
             --create
           keychain initialize
@@ -43,19 +46,9 @@ workflows:
 
       - name: Archivio e ipa
         script: |
-          xcodebuild -project "$XCODE_PROJECT" \
-            -scheme "$XCODE_SCHEME" \
-            -configuration Release \
-            -archivePath build/Fovea.xcarchive \
-            -allowProvisioningUpdates \
-            CODE_SIGN_STYLE=Automatic \
-            DEVELOPMENT_TEAM=S6C4FQLMT5 \
-            archive
-          xcodebuild -exportArchive \
-            -archivePath build/Fovea.xcarchive \
-            -exportPath build/ios/ipa \
-            -allowProvisioningUpdates \
-            -exportOptionsPlist export.plist
+          xcode-project build-ipa \
+            --project "$XCODE_PROJECT" \
+            --scheme "$XCODE_SCHEME"
 
     artifacts:
       - build/ios/ipa/*.ipa
