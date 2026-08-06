@@ -26,7 +26,13 @@ workflows:
 
       - name: Certificato e profilo
         script: |
-          app-store-connect create-certificate --type IOS_DISTRIBUTION --save || echo "certificato gia presente"
+          echo "=== BUNDLE ID VISIBILI ==="
+          app-store-connect list-bundle-ids || echo "ERRORE list-bundle-ids"
+          echo "=== CERTIFICATI ==="
+          app-store-connect list-certificates --type IOS_DISTRIBUTION || echo "ERRORE list-certificates"
+          echo "=== CREO CERTIFICATO ==="
+          app-store-connect create-certificate --type IOS_DISTRIBUTION --save || echo "gia presente o errore"
+          echo "=== SCARICO PROFILO ==="
           app-store-connect fetch-signing-files "$BUNDLE_ID" --platform IOS --type IOS_APP_STORE --create
           keychain initialize
           keychain add-certificates
