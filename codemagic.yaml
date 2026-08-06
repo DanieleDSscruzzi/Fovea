@@ -43,10 +43,19 @@ workflows:
 
       - name: Archivio e ipa
         script: |
-          xcode-project build-ipa \
-            --project "$XCODE_PROJECT" \
-            --scheme "$XCODE_SCHEME" \
-            --archive-flags "CODE_SIGN_STYLE=Automatic DEVELOPMENT_TEAM=S6C4FQLMT5 -allowProvisioningUpdates"
+          xcodebuild -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -configuration Release \
+            -archivePath build/Fovea.xcarchive \
+            -allowProvisioningUpdates \
+            CODE_SIGN_STYLE=Automatic \
+            DEVELOPMENT_TEAM=S6C4FQLMT5 \
+            archive
+          xcodebuild -exportArchive \
+            -archivePath build/Fovea.xcarchive \
+            -exportPath build/ios/ipa \
+            -allowProvisioningUpdates \
+            -exportOptionsPlist export.plist
 
     artifacts:
       - build/ios/ipa/*.ipa
