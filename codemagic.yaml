@@ -45,7 +45,9 @@ workflows:
         script: |
           xcode-project build-ipa \
             --project "$XCODE_PROJECT" \
-            --scheme "$XCODE_SCHEME"
+            --scheme "$XCODE_SCHEME" \
+            -- CODE_SIGN_STYLE=Automatic \
+               DEVELOPMENT_TEAM=S6C4FQLMT5
 
     artifacts:
       - build/ios/ipa/*.ipa
