@@ -10,9 +10,6 @@ workflows:
 
     environment:
       xcode: latest
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.byds.fovea
       vars:
         XCODE_PROJECT: "Fovea.xcodeproj"
         XCODE_SCHEME: "Fovea"
