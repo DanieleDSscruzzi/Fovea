@@ -33,6 +33,10 @@ workflows:
             --platform IOS \
             --type IOS_APP_STORE \
             --create
+          echo "=== PROFILI SCARICATI ==="
+          ls -la ~/Library/MobileDevice/Provisioning\\ Profiles/ || echo "NESSUN PROFILO"
+          echo "=== CERTIFICATI ==="
+          app-store-connect list-certificates --type IOS_DISTRIBUTION
           keychain initialize
           keychain add-certificates
           xcode-project use-profiles
