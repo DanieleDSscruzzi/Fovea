@@ -51,6 +51,14 @@ workflows:
         script: |
           xcode-project build-ipa --project "$XCODE_PROJECT" --scheme "$XCODE_SCHEME"
 
+      - name: Ispezione ipa
+        script: |
+          cd build/ios/ipa
+          unzip -o -q Fovea.ipa -d _x
+          echo "=== CONTENUTO APPEX ==="
+          find _x/Payload/Fovea.app/PlugIns -type f | sed 's|_x/Payload/Fovea.app/||'
+          rm -rf _x
+
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
