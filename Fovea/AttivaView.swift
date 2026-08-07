@@ -3,13 +3,9 @@
 //  Fovea — By D.S.
 //
 //  La pagina ATTIVA. Un'app iOS non può accendere da sola la propria
-//  estensione Safari: non esiste API, né su iPhone né su iPad. Quello che
-//  può fare — e qui fa — è portarti al posto giusto in tre passi e poi
-//  accorgersi da sola quando è fatta.
-//
-//  Il rilevamento passa da un App Group: la prima volta che Safari carica
-//  l'estensione, l'handler nativo scrive un timestamp nella suite condivisa.
-//  L'app lo legge. Nessuna finzione, nessun "presumo di sì".
+//  estensione Safari: non esiste API. Quello che può fare — e qui fa — è
+//  portarti al posto giusto in tre passi e poi accorgersi da sola quando è
+//  fatta, leggendo il timestamp che l'estensione scrive nell'App Group.
 //
 
 import SwiftUI
@@ -19,9 +15,14 @@ enum Ponte {
     static let chiave = "estensione.ultimoAvvio"
 
     static var estensioneVista: Date? {
-        UserDefaults(suiteName: gruppo)?
-            .object(forKey: chiave) as? Date
+        UserDefaults(suiteName: gruppo)?.object(forKey: chiave) as? Date
     }
+}
+
+enum Legale {
+    // Sostituisci con gli URL veri quando il sito è online.
+    static let termini = URL(string: "https://byds.it/fovea/termini")!
+    static let privacy = URL(string: "https://byds.it/fovea/privacy")!
 }
 
 struct AttivaView: View {
@@ -37,23 +38,41 @@ struct AttivaView: View {
             Ink.base.ignoresSafeArea()
 
             VStack(spacing: 0) {
-                Spacer(minLength: 20)
+                marchio
+                Spacer(minLength: 24)
                 stemma
-                Spacer(minLength: 28)
+                Spacer(minLength: 30)
 
                 if attiva { conferma } else { passi }
 
                 Spacer()
-                chiudi
+                piede
             }
             .padding(.horizontal, 28)
         }
         .onAppear { ricontrolla() }
-        // Al rientro da Impostazioni la risposta è cambiata: ricontrolla.
         .onReceive(NotificationCenter.default.publisher(
             for: UIApplication.willEnterForegroundNotification)) { _ in
             ricontrolla()
         }
+    }
+
+    // MARK: Marchio
+
+    /// In cima, centrato: è la prima schermata che un utente nuovo vede,
+    /// e deve sapere di chi è l'app prima di sapere cosa fa.
+    private var marchio: some View {
+        VStack(spacing: 3) {
+            Text("Fovea")
+                .font(.system(size: 27, weight: .semibold, design: .serif))
+                .foregroundStyle(Ink.paper)
+            Text("BY D.S.")
+                .font(.signal)
+                .tracking(3.4)
+                .foregroundStyle(Ink.muted)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.top, 26)
     }
 
     // MARK: Stemma
@@ -63,10 +82,10 @@ struct AttivaView: View {
             ZStack {
                 Circle()
                     .stroke(attiva ? Ink.brass : Ink.muted.opacity(0.35), lineWidth: 2)
-                    .frame(width: 132, height: 132)
+                    .frame(width: 128, height: 128)
                     .scaleEffect(battito ? 1.06 : 1)
                 Image(systemName: attiva ? "checkmark" : "power")
-                    .font(.system(size: 44, weight: .light))
+                    .font(.system(size: 42, weight: .light))
                     .foregroundStyle(attiva ? Ink.brass : Ink.muted)
             }
             .animation(.easeInOut(duration: 1.4).repeatForever(autoreverses: true),
@@ -119,7 +138,6 @@ struct AttivaView: View {
 
     private func passo(_ n: Int, _ titolo: String, _ nota: String) -> some View {
         HStack(alignment: .top, spacing: 16) {
-            // La numerazione qui serve: è una sequenza vera, l'ordine conta.
             Text("\(n)")
                 .font(.system(size: 12, weight: .medium, design: .monospaced))
                 .foregroundStyle(Ink.brass)
@@ -137,20 +155,32 @@ struct AttivaView: View {
         }
     }
 
-    private var chiudi: some View {
-        Button("Chiudi") { dismiss() }
-            .font(.signal)
-            .tracking(1.4)
-            .foregroundStyle(Ink.muted)
-            .padding(.vertical, 24)
+    // MARK: Piede
+
+    /// Termini e privacy in fondo, dove la gente li cerca. Sono link veri:
+    /// App Review controlla che portino a pagine raggiungibili.
+    private var piede: some View {
+        VStack(spacing: 16) {
+            Button("Chiudi") { dismiss() }
+                .font(.signal)
+                .tracking(1.4)
+                .foregroundStyle(Ink.muted)
+
+            HStack(spacing: 18) {
+                Link("Termini e condizioni", destination: Legale.termini)
+                Text("·").foregroundStyle(Ink.muted.opacity(0.5))
+                Link("Privacy", destination: Legale.privacy)
+            }
+            .font(.system(size: 11, weight: .regular, design: .monospaced))
+            .tint(Ink.muted)
+        }
+        .padding(.bottom, 20)
     }
 
     // MARK: Azioni
 
     private func ricontrolla() {
-        withAnimation(.easeOut(duration: 0.3)) {
-            vista = Ponte.estensioneVista
-        }
+        withAnimation(.easeOut(duration: 0.3)) { vista = Ponte.estensioneVista }
         if vista != nil { battito = false }
     }
 

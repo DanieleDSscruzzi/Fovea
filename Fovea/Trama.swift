@@ -48,11 +48,25 @@ public final class TramaModel: ObservableObject {
         didSet { UserDefaults.standard.set(ampiezza, forKey: "fovea.trama.ampiezza") }
     }
 
+    /// Quando Sguardo è attivo, il periodo lo detta la distanza misurata
+    /// invece dello slider: si adatta mentre avvicini o allontani il telefono.
+    @Published public var periodoAutomatico: Bool {
+        didSet { UserDefaults.standard.set(periodoAutomatico, forKey: "fovea.trama.auto") }
+    }
+
+    /// Scritto da SguardoModel a ogni misura.
+    @Published public var periodoMisurato: Double = 3
+
+    public var periodoAttivo: Double {
+        periodoAutomatico ? periodoMisurato : periodo
+    }
+
     public init() {
         let d = UserDefaults.standard
         attiva = d.bool(forKey: "fovea.trama.attiva")
         periodo = d.object(forKey: "fovea.trama.periodo") as? Double ?? 3
         ampiezza = d.object(forKey: "fovea.trama.ampiezza") as? Double ?? 0.26
+        periodoAutomatico = d.object(forKey: "fovea.trama.auto") as? Bool ?? true
     }
 
     /// Campo su cui si posa la trama. Un grigio medio, non il fondo scuro
@@ -69,7 +83,7 @@ public final class TramaModel: ObservableObject {
     /// Diagnostica onesta: a che distanza il testo diventa illeggibile,
     /// dato il periodo scelto e un'acuità di 1' d'arco.
     public var distanzaDiSicurezza: Double {
-        let mm = periodo * 25.4 / 460.0          // periodo in millimetri
+        let mm = periodoAttivo * 25.4 / 460.0          // periodo in millimetri
         let radianti = (1.0 / 60.0) * .pi / 180  // 1 primo d'arco
         return (mm / radianti) / 10.0            // in centimetri
     }
@@ -103,7 +117,7 @@ public struct TramaText: View {
     }
 
     private var piastrella: UIImage {
-        Self.righe(periodo: Int(model.periodo.rounded()), toni: model.toni)
+        Self.righe(periodo: Int(model.periodoAttivo.rounded()), toni: model.toni)
     }
 
     static func righe(periodo: Int, toni: (UIColor, UIColor)) -> UIImage {
@@ -143,10 +157,16 @@ public struct TaraturaTrama: View {
                 .clipped()
 
             VStack(spacing: 5) {
+                Toggle("Periodo dalla distanza misurata", isOn: $model.periodoAutomatico)
+                    .font(.page(13))
+                    .foregroundStyle(Ink.paper)
+                    .tint(Ink.brass)
                 Slider(value: $model.periodo, in: 2...6, step: 1)
                     .tint(Ink.brass)
+                    .disabled(model.periodoAutomatico)
+                    .opacity(model.periodoAutomatico ? 0.35 : 1)
                 HStack {
-                    Text("periodo \(Int(model.periodo)) px")
+                    Text("periodo \(Int(model.periodoAttivo)) px")
                         .font(.signal).foregroundStyle(Ink.muted)
                     Spacer()
                     Text(String(format: "sparisce oltre %.0f cm",

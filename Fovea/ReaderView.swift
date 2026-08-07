@@ -9,7 +9,8 @@ struct ReaderView: View {
 
     @EnvironmentObject private var store: NoteStore
     @StateObject private var guardModel = PrivacyGuardModel()
-    @StateObject private var tiltModel = TiltPrivacyModel()
+    @StateObject private var sguardo = SguardoModel()
+    @StateObject private var schermo = SchermoModel()
     @StateObject private var soglia = SogliaModel()
     @StateObject private var trama = TramaModel()
 
@@ -20,9 +21,9 @@ struct ReaderView: View {
     @State private var note: Note
     @State private var editing = false
     @State private var mostraAttiva = false
-    @State private var calibrating = false
     @State private var tarandoSoglia = false
     @State private var tarandoTrama = false
+    @State private var tarandoSchermo = false
     @FocusState private var typing: Bool
 
     init(note: Note) {
@@ -39,11 +40,18 @@ struct ReaderView: View {
 
                 if editing { editor } else { reader }
             }
+            .schermo(schermo)
             // L'angolo si applica per ultimo, sopra tutto: è una pellicola
             // appoggiata sullo schermo, non una proprietà del testo.
-            .tiltPrivacy(tiltModel, enabled: angleEnabled && !editing)
+            .sguardo(sguardo, enabled: angleEnabled && sguardo.disponibile && !editing)
+            .onChange(of: sguardo.distanza) { _, _ in
+                trama.periodoMisurato = sguardo.periodoConsigliato
+                schermo.cellaMisurata = sguardo.periodoConsigliato / 2
+            }
 
-            if calibrating { calibrationCard }
+            if tarandoSchermo {
+                TaraturaSchermo(model: schermo) { tarandoSchermo = false }
+            }
             if tarandoTrama {
                 TaraturaTrama(model: trama,
                               campione: String(note.body.prefix(160))) {
@@ -83,8 +91,11 @@ struct ReaderView: View {
 
     private var statusBar: some View {
         HStack(spacing: 8) {
-            StatusTag(text: angleEnabled ? "angolo attivo" : "angolo spento",
-                      active: angleEnabled)
+            StatusTag(text: sguardoStato, active: angleEnabled)
+            if schermo.attivo {
+                StatusTag(text: String(format: "schermo %.0fpx", schermo.cellaAttiva),
+                          active: true)
+            }
             StatusTag(text: watchStatusText,
                       active: watchEnabled && guardModel.access == .granted)
             StatusTag(text: lensEnabled ? "lente attiva" : "lente spenta",
@@ -95,15 +106,16 @@ struct ReaderView: View {
             }
             Spacer()
             Menu {
-                Toggle("Angolo", isOn: $angleEnabled)
+                Toggle("Sguardo", isOn: $angleEnabled)
                 Toggle("Sguardi", isOn: $watchEnabled)
                 Toggle("Lente", isOn: $lensEnabled)
                 Toggle("Soglia", isOn: $soglia.attiva)
                 Toggle("Trama", isOn: $trama.attiva)
+                Toggle("Schermo", isOn: $schermo.attivo)
                 Divider()
-                Button("Tara l'angolo") { startCalibration() }
                 Button("Tara la soglia") { tarandoSoglia = true }
                 Button("Tara la trama") { tarandoTrama = true }
+                Button("Tara lo schermo") { tarandoSchermo = true }
                 Divider()
                 Button("Attiva su tutti i siti") { mostraAttiva = true }
                 if guardModel.access == .denied {
@@ -119,6 +131,13 @@ struct ReaderView: View {
         .background(Ink.deep)
     }
 
+    private var sguardoStato: String {
+        guard angleEnabled else { return "sguardo spento" }
+        if !sguardo.disponibile { return "TrueDepth assente" }
+        if sguardo.senzaVolto { return "nessun volto" }
+        return String(format: "%.0f cm · %.0f°", sguardo.distanza, sguardo.angolo)
+    }
+
     private var watchStatusText: String {
         guard watchEnabled else { return "sguardi spenti" }
         switch guardModel.access {
@@ -131,41 +150,6 @@ struct ReaderView: View {
     // MARK: Taratura
 
     /// Sta sopra la pellicola, così resta leggibile mentre l'utente inclina.
-    private var calibrationCard: some View {
-        VStack(spacing: 16) {
-            Text("Tieni il telefono come ti è comodo")
-                .font(.pageTitle(19))
-                .foregroundStyle(Ink.paper)
-            Text("Questa diventa la posizione in chiaro.\nDa qui in poi, inclinare copre la pagina.")
-                .font(.page(14))
-                .multilineTextAlignment(.center)
-                .foregroundStyle(Ink.muted)
-            Text(String(format: "%.0f°", tiltModel.angle))
-                .font(.system(size: 40, weight: .light, design: .monospaced))
-                .foregroundStyle(Ink.brass)
-            Button("Fissa qui") {
-                tiltModel.calibrate()
-                calibrating = false
-            }
-            .font(.signal)
-            .tracking(1.4)
-            .padding(.horizontal, 22)
-            .padding(.vertical, 12)
-            .overlay(Capsule().stroke(Ink.brass.opacity(0.6), lineWidth: 1))
-            .foregroundStyle(Ink.brass)
-        }
-        .padding(34)
-        .background(RoundedRectangle(cornerRadius: 22).fill(Ink.deep))
-        .shadow(color: .black.opacity(0.6), radius: 30)
-        .padding(30)
-    }
-
-    private func startCalibration() {
-        if !angleEnabled { angleEnabled = true }
-        tiltModel.start()
-        calibrating = true
-    }
-
     // MARK: Lettura
 
     private var reader: some View {

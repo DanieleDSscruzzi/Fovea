@@ -15,9 +15,10 @@ import SwiftUI
 struct HomeView: View {
 
     @EnvironmentObject private var store: NoteStore
-    @StateObject private var tilt = TiltPrivacyModel()
+    @StateObject private var sguardo = SguardoModel()
     @StateObject private var soglia = SogliaModel()
     @StateObject private var trama = TramaModel()
+    @StateObject private var schermo = SchermoModel()
 
     @AppStorage("fovea.angle") private var angolo = true
     @AppStorage("fovea.watch") private var sguardi = false
@@ -28,7 +29,8 @@ struct HomeView: View {
     @State private var estensione: Date? = Ponte.estensioneVista
 
     private var attive: Int {
-        [angolo, sguardi, lente, soglia.attiva, trama.attiva].filter { $0 }.count
+        [angolo, sguardi, lente, soglia.attiva, trama.attiva, schermo.attivo]
+            .filter { $0 }.count
     }
 
     var body: some View {
@@ -55,10 +57,11 @@ struct HomeView: View {
             NavigationStack { LibraryView() }.environmentObject(store)
         }
         .onAppear {
-            tilt.start()
+            sguardo.avvia()
+            schermo.cellaMisurata = sguardo.periodoConsigliato / 2
             estensione = Ponte.estensioneVista
         }
-        .onDisappear { tilt.stop() }
+        .onDisappear { sguardo.ferma() }
     }
 
     // MARK: Testata
@@ -81,7 +84,7 @@ struct HomeView: View {
                 Text("\(attive)")
                     .font(.system(size: 30, weight: .light, design: .monospaced))
                     .foregroundStyle(attive > 0 ? Ink.brass : Ink.muted)
-                Text("/5")
+                Text("/6")
                     .font(.system(size: 15, weight: .light, design: .monospaced))
                     .foregroundStyle(Ink.muted)
             }
@@ -114,31 +117,34 @@ struct HomeView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(22)
-            .blur(radius: angolo ? CGFloat(tilt.exposure) * 13 : 0)
+            .blur(radius: angolo ? CGFloat(sguardo.esposizione) * 13 : 0)
             .overlay {
                 if angolo {
                     RoundedRectangle(cornerRadius: 20)
                         .fill(Color.black)
-                        .opacity(tilt.exposure * 0.88)
+                        .opacity(sguardo.esposizione * 0.88)
                 }
             }
 
             // Lettura dei gradi: serve a capire dove cadono le soglie
             // sul proprio iPhone, e rende evidente che il sensore lavora.
             if angolo {
-                Text(String(format: "%.0f°", tilt.angle))
-                    .font(.system(size: 12, weight: .medium, design: .monospaced))
-                    .foregroundStyle(tilt.exposure > 0.5 ? Ink.brass : Ink.muted)
+                Text(sguardo.disponibile
+                     ? String(format: "%.0f cm · %.0f°", sguardo.distanza, sguardo.angolo)
+                     : "TrueDepth assente")
+                    .font(.system(size: 11, weight: .medium, design: .monospaced))
+                    .foregroundStyle(sguardo.esposizione > 0.5 ? Ink.brass : Ink.muted)
                     .padding(14)
             }
         }
+        .schermo(schermo)
         .frame(height: 172)
         .overlay(
             RoundedRectangle(cornerRadius: 20)
                 .stroke(Ink.muted.opacity(0.16), lineWidth: 1)
         )
         .overlay(alignment: .bottom) {
-            Text(angolo ? "inclina il telefono per provare" : "attiva Angolo per provare")
+            Text(angolo ? "spostati di lato per provare" : "attiva Sguardo per provare")
                 .font(.signal)
                 .tracking(1.2)
                 .foregroundStyle(Ink.muted)
@@ -151,7 +157,8 @@ struct HomeView: View {
 
     private var comandi: some View {
         VStack(spacing: 0) {
-            riga("Angolo", "si copre quando inclini", isOn: $angolo)
+            riga("Sguardo", "si copre quando lo schermo lascia i tuoi occhi",
+                 isOn: $angolo)
             divisore
             riga("Sguardi", "copre se compare un secondo volto", isOn: $sguardi)
             divisore
@@ -166,6 +173,12 @@ struct HomeView: View {
                  : "righe al limite dell'occhio",
                  isOn: Binding(get: { trama.attiva },
                                set: { trama.attiva = $0 }))
+            divisore
+            riga("Schermo", schermo.attivo
+                 ? String(format: "si fonde oltre %.0f cm", schermo.distanzaDiFusione)
+                 : "scacchiera su tutta l'interfaccia",
+                 isOn: Binding(get: { schermo.attivo },
+                               set: { schermo.attivo = $0 }))
         }
         .padding(.vertical, 4)
         .background(RoundedRectangle(cornerRadius: 18).fill(Ink.deep))

@@ -13,12 +13,17 @@
 		4E025A3495C321570FB24DA6 /* AttivaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E84239EC9C574CA80B8A7F0 /* AttivaView.swift */; };
 		3279970749024F4F54EFD61A /* Soglia.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1EA2A7E1191C7B7F906B51 /* Soglia.swift */; };
 		726A3F513FBB39FD9D5FBC31 /* Trama.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4325A616BD9BF9BE841D7492 /* Trama.swift */; };
-		A96945A3120FDE6F12CDDC2F /* TiltPrivacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265BC16D7A47D608469748F8 /* TiltPrivacy.swift */; };
+		06ED26F254F113F6A3B7C79B /* Sguardo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DC70E53945CB272A7DBCF6 /* Sguardo.swift */; };
+		11F08A1FF1F87C10482D791A /* Schermo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8077C37C41183E9FB6B8D6EB /* Schermo.swift */; };
 		8F1A787F54E0AD56E75D1009 /* SpotReveal.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB337FF85954244A9F17951 /* SpotReveal.swift */; };
 		7394DF7881C806A6C266ACD7 /* PrivacyGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D6E1D8700958BEC5C124DB /* PrivacyGuard.swift */; };
 		B49FC159CF9A40F46D82CA2E /* NoteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5007B96B6B7C12F4CA1BEA3B /* NoteStore.swift */; };
 		10F2B3A80F3E2474B510EB42 /* Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29862951D57D51FFAADD9FE /* Design.swift */; };
+		C1C76DC14F2929411780C61A /* Schermo.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0A13A770F456FCD53B977002 /* Schermo.metal */; };
 		F98054F2C87DFBA3C1256F8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E302583639841BB88528CF6 /* Assets.xcassets */; };
+		AB1556007EE350327F02A39B /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708568E30D254BDFD94AD764 /* SafariWebExtensionHandler.swift */; };
+		806834E4BC5A088D6D38E47A /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 8989B9CD80FD0379EE33E125 /* Resources */; };
+		7C298BB23BD680F70A210EE9 /* FoveaSafari.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 72520965B2739637F7C9DF4A /* FoveaSafari.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,16 +34,29 @@
 		4E84239EC9C574CA80B8A7F0 /* AttivaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttivaView.swift; sourceTree = "<group>"; };
 		FE1EA2A7E1191C7B7F906B51 /* Soglia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Soglia.swift; sourceTree = "<group>"; };
 		4325A616BD9BF9BE841D7492 /* Trama.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trama.swift; sourceTree = "<group>"; };
-		265BC16D7A47D608469748F8 /* TiltPrivacy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiltPrivacy.swift; sourceTree = "<group>"; };
+		19DC70E53945CB272A7DBCF6 /* Sguardo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sguardo.swift; sourceTree = "<group>"; };
+		8077C37C41183E9FB6B8D6EB /* Schermo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schermo.swift; sourceTree = "<group>"; };
 		ABB337FF85954244A9F17951 /* SpotReveal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotReveal.swift; sourceTree = "<group>"; };
 		61D6E1D8700958BEC5C124DB /* PrivacyGuard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyGuard.swift; sourceTree = "<group>"; };
 		5007B96B6B7C12F4CA1BEA3B /* NoteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteStore.swift; sourceTree = "<group>"; };
 		E29862951D57D51FFAADD9FE /* Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Design.swift; sourceTree = "<group>"; };
+		0A13A770F456FCD53B977002 /* Schermo.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Schermo.metal; sourceTree = "<group>"; };
 		0E302583639841BB88528CF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		72520965B2739637F7C9DF4A /* FoveaSafari.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FoveaSafari.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		708568E30D254BDFD94AD764 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		01D8F6D627B7D4B025346E2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8989B9CD80FD0379EE33E125 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		007566D1E9B441A02F851689 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACC0ECE7793C0FDAF515C94F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -52,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				8600A71FDAC9B68623EA7A29 /* Fovea */,
+				4DF8575E72F69389114403B4 /* FoveaSafari */,
 				37F299C4798174BD8E3CA5A9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -65,20 +84,33 @@
 				4E84239EC9C574CA80B8A7F0 /* AttivaView.swift */,
 				FE1EA2A7E1191C7B7F906B51 /* Soglia.swift */,
 				4325A616BD9BF9BE841D7492 /* Trama.swift */,
-				265BC16D7A47D608469748F8 /* TiltPrivacy.swift */,
+				19DC70E53945CB272A7DBCF6 /* Sguardo.swift */,
+				8077C37C41183E9FB6B8D6EB /* Schermo.swift */,
 				ABB337FF85954244A9F17951 /* SpotReveal.swift */,
 				61D6E1D8700958BEC5C124DB /* PrivacyGuard.swift */,
 				5007B96B6B7C12F4CA1BEA3B /* NoteStore.swift */,
 				E29862951D57D51FFAADD9FE /* Design.swift */,
+				0A13A770F456FCD53B977002 /* Schermo.metal */,
 				0E302583639841BB88528CF6 /* Assets.xcassets */,
 			);
 			path = Fovea;
+			sourceTree = "<group>";
+		};
+		4DF8575E72F69389114403B4 /* FoveaSafari */ = {
+			isa = PBXGroup;
+			children = (
+				708568E30D254BDFD94AD764 /* SafariWebExtensionHandler.swift */,
+				8989B9CD80FD0379EE33E125 /* Resources */,
+				01D8F6D627B7D4B025346E2C /* Info.plist */,
+			);
+			path = FoveaSafari;
 			sourceTree = "<group>";
 		};
 		37F299C4798174BD8E3CA5A9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				3954DF05185AAFA2BAC869C0 /* Fovea.app */,
+				72520965B2739637F7C9DF4A /* FoveaSafari.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -93,6 +125,7 @@
 				DB381241C0C1150066FCD29C /* Sources */,
 				007566D1E9B441A02F851689 /* Frameworks */,
 				82ABD9E5E67A4564DF2E4789 /* Resources */,
+				99BF7E9161FE362A5DD36408 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -103,7 +136,56 @@
 			productReference = 3954DF05185AAFA2BAC869C0 /* Fovea.app */;
 			productType = "com.apple.product-type.application";
 		};
+		6615E6F8D76CA8812836A94E /* FoveaSafari */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8CA086D9E089DF55E39AC157 /* Build configuration list for PBXNativeTarget "FoveaSafari" */;
+			buildPhases = (
+				BF8282B14DA1AC7399FBEBC3 /* Sources */,
+				ACC0ECE7793C0FDAF515C94F /* Frameworks */,
+				C83421937A6F173917F49220 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FoveaSafari;
+			productName = FoveaSafari;
+			productReference = 72520965B2739637F7C9DF4A /* FoveaSafari.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		99BF7E9161FE362A5DD36408 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				7C298BB23BD680F70A210EE9 /* FoveaSafari.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8DDA6190B044E907F10E9421 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6615E6F8D76CA8812836A94E /* FoveaSafari */;
+			targetProxy = 1E15E0DBA1FEC21B27CCCE04 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXContainerItemProxy section */
+		1E15E0DBA1FEC21B27CCCE04 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7DD0BD45E52B24958659F9B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6615E6F8D76CA8812836A94E;
+			remoteInfo = FoveaSafari;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXProject section */
 		7DD0BD45E52B24958659F9B2 /* Project object */ = {
@@ -132,6 +214,7 @@
 			projectRoot = "";
 			targets = (
 				6B58A0B900EBA26624333F26 /* Fovea */,
+				6615E6F8D76CA8812836A94E /* FoveaSafari */,
 			);
 		};
 /* End PBXProject section */
@@ -142,6 +225,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F98054F2C87DFBA3C1256F8E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C83421937A6F173917F49220 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				806834E4BC5A088D6D38E47A /* Resources in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,11 +249,21 @@
 				4E025A3495C321570FB24DA6 /* AttivaView.swift in Sources */,
 				3279970749024F4F54EFD61A /* Soglia.swift in Sources */,
 				726A3F513FBB39FD9D5FBC31 /* Trama.swift in Sources */,
-				A96945A3120FDE6F12CDDC2F /* TiltPrivacy.swift in Sources */,
+				06ED26F254F113F6A3B7C79B /* Sguardo.swift in Sources */,
+				11F08A1FF1F87C10482D791A /* Schermo.swift in Sources */,
 				8F1A787F54E0AD56E75D1009 /* SpotReveal.swift in Sources */,
 				7394DF7881C806A6C266ACD7 /* PrivacyGuard.swift in Sources */,
 				B49FC159CF9A40F46D82CA2E /* NoteStore.swift in Sources */,
 				10F2B3A80F3E2474B510EB42 /* Design.swift in Sources */,
+				C1C76DC14F2929411780C61A /* Schermo.metal in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF8282B14DA1AC7399FBEBC3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB1556007EE350327F02A39B /* SafariWebExtensionHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,15 +314,51 @@
 			};
 			name = Release;
 		};
+		473D462D5995E62F54021C2C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S6C4FQLMT5;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FoveaSafari/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.byds.fovea.safari;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		6E1BB2C2246A823373BFDDC0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S6C4FQLMT5;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FoveaSafari/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.byds.fovea.safari;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
 		61E7612872E76CC11D771F7A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Manual;
-				CODE_SIGN_IDENTITY = "Apple Distribution";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				CURRENT_PROJECT_VERSION = 22;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 				DEVELOPMENT_TEAM = S6C4FQLMT5;
 				ENABLE_PREVIEWS = YES;
@@ -248,10 +385,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Manual;
-				CODE_SIGN_IDENTITY = "Apple Distribution";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				CURRENT_PROJECT_VERSION = 22;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 				DEVELOPMENT_TEAM = S6C4FQLMT5;
 				ENABLE_PREVIEWS = YES;
@@ -290,6 +425,15 @@
 			buildConfigurations = (
 				61E7612872E76CC11D771F7A /* Debug */,
 				CF1FC760861BEB856A5B2791 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8CA086D9E089DF55E39AC157 /* Build configuration list for PBXNativeTarget "FoveaSafari" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				473D462D5995E62F54021C2C /* Debug */,
+				6E1BB2C2246A823373BFDDC0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

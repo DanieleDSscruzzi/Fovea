@@ -1,24 +1,34 @@
+# codemagic.yaml — Fovea / By D.S.
+#
+# Va nella RADICE del repository, accanto a Fovea.xcodeproj.
+# Codemagic lo legge da solo: nessuna configurazione da fare nella loro
+# interfaccia, a parte collegare il repo e caricare la chiave App Store Connect.
+
 workflows:
+
   fovea-testflight:
     name: Fovea — TestFlight
     instance_type: mac_mini_m2
     max_build_duration: 45
 
+    # Il nome qui sotto deve combaciare con quello che dai alla chiave
+    # App Store Connect in Codemagic › Teams › Integrations.
     integrations:
       app_store_connect: FoveaASC
 
     environment:
-      xcode: 26.4
+      xcode: latest
+      # Firma automatica: Codemagic scarica e applica i profili da solo,
+      # a patto che il bundle id sia già registrato su App Store Connect.
       ios_signing:
-        provisioning_profiles:
-          - Fovea
-          - FoveaSafari
-        certificates:
-          - FoveaCert
+        distribution_type: app_store
+        bundle_identifier: com.byds.fovea
       vars:
-        BUNDLE_ID: "com.byds.fovea"
-        TEAM_ID: "S6C4FQLMT5"
-        APP_STORE_APP_ID: 6798842299
+        XCODE_PROJECT: "Fovea.xcodeproj"
+        XCODE_SCHEME: "Fovea"
+        # Apple ID numerico dell'app, lo trovi nell'URL di App Store Connect
+        # quando apri la scheda dell'app. Sostituiscilo.
+        APP_STORE_APP_ID: 0000000000
 
     triggering:
       events:
@@ -30,53 +40,44 @@ workflows:
 
     scripts:
 
-      - name: Certificato e profilo
+      - name: Profili di firma
         script: |
-          keychain initialize
-          app-store-connect fetch-signing-files "$BUNDLE_ID" \
-            --platform IOS --type IOS_APP_STORE --create
-          keychain add-certificates
-          echo "=== PROFILI PRESENTI ==="
-          find ~/Library -name "*.mobileprovision" 2>/dev/null || echo "NESSUNO"
+          xcode-project use-profiles
 
+      # Il numero di build deve superare quello già su TestFlight, altrimenti
+      # l'upload viene rifiutato a fine build — dopo aver speso i minuti.
       - name: Numero di build
         script: |
-          ULTIMO=$(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID" 2>/dev/null || echo 0)
-          NUOVO=$(( ${ULTIMO:-0} + 1 ))
-          echo "=== BUILD NUMBER: $NUOVO ==="
-          python3 -c "
-import re,sys
-p='Fovea.xcodeproj/project.pbxproj'
-t=open(p).read()
-t,n=re.subn(r'CURRENT_PROJECT_VERSION = [0-9]+;', 'CURRENT_PROJECT_VERSION = '+sys.argv[1]+';', t)
-open(p,'w').write(t)
-print('sostituzioni:', n)
-" $NUOVO
-          grep CURRENT_PROJECT_VERSION Fovea.xcodeproj/project.pbxproj
+          ULTIMO=$(app-store-connect get-latest-testflight-build-number \
+                    "$APP_STORE_APP_ID" 2>/dev/null || echo 0)
+          echo "ultimo su TestFlight: $ULTIMO"
+          agvtool new-version -all $(($ULTIMO + 1))
 
-      - name: Archivio
+      - name: Archivio e ipa
         script: |
-          set -e
-          PROF=$(find ~/Library -name "*.mobileprovision" 2>/dev/null | head -1)
-          NOME=$(security cms -D -i "$PROF" | plutil -extract Name raw -)
-          echo "=== USO IL PROFILO: $NOME ==="
-          echo "$NOME" > /tmp/nome_profilo
-          xcodebuild -project Fovea.xcodeproj -scheme Fovea -configuration Release -archivePath build/Fovea.xcarchive -destination "generic/platform=iOS" CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="$TEAM_ID" CODE_SIGN_IDENTITY="Apple Distribution" PROVISIONING_PROFILE_SPECIFIER="$NOME" archive
-
-      - name: Export ipa
-        script: |
-          set -e
-          NOME=$(cat /tmp/nome_profilo)
-          python3 -c "import plistlib,os,sys; plistlib.dump({'method':'app-store-connect','teamID':os.environ['TEAM_ID'],'signingStyle':'manual','provisioningProfiles':{os.environ['BUNDLE_ID']:sys.argv[1]}}, open('export.plist','wb'))" "$NOME"
-          xcodebuild -exportArchive -archivePath build/Fovea.xcarchive -exportPath build/ios/ipa -exportOptionsPlist export.plist
+          xcode-project build-ipa \
+            --project "$XCODE_PROJECT" \
+            --scheme "$XCODE_SCHEME"
 
     artifacts:
       - build/ios/ipa/*.ipa
+      # I log servono davvero: sono la ragione per cui sei qui invece che
+      # su Xcode Cloud. Restano scaricabili anche quando la build fallisce.
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
 
     publishing:
       app_store_connect:
         auth: integration
         submit_to_testflight: true
+        # Niente gruppi: la build resta in Internal Testing, la distribuisci
+        # a mano. Per mandarla subito ai tester, scommenta e metti il gruppo.
+        # beta_groups:
+        #   - Amici
+
       email:
         recipients:
-          - superdanipro2020@gmail.com
+          - tua@email.it
+        notify:
+          success: true
+          failure: true
