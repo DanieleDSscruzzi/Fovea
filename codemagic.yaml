@@ -37,6 +37,10 @@ workflows:
       - name: Numero di build
         script: ./bump.sh
 
+      - name: Metal Toolchain
+        script: |
+          xcodebuild -downloadComponent MetalToolchain
+
       - name: Archivio e ipa
         script: |
           xcode-project build-ipa --project "$XCODE_PROJECT" --scheme "$XCODE_SCHEME"
