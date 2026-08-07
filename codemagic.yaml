@@ -1,34 +1,24 @@
-# codemagic.yaml — Fovea / By D.S.
-#
-# Va nella RADICE del repository, accanto a Fovea.xcodeproj.
-# Codemagic lo legge da solo: nessuna configurazione da fare nella loro
-# interfaccia, a parte collegare il repo e caricare la chiave App Store Connect.
-
 workflows:
-
   fovea-testflight:
     name: Fovea — TestFlight
     instance_type: mac_mini_m2
     max_build_duration: 45
 
-    # Il nome qui sotto deve combaciare con quello che dai alla chiave
-    # App Store Connect in Codemagic › Teams › Integrations.
     integrations:
       app_store_connect: FoveaASC
 
     environment:
-      xcode: latest
-      # Firma automatica: Codemagic scarica e applica i profili da solo,
-      # a patto che il bundle id sia già registrato su App Store Connect.
+      xcode: 26.4
       ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.byds.fovea
+        provisioning_profiles:
+          - Fovea
+          - FoveaSafari
+        certificates:
+          - FoveaCert
       vars:
         XCODE_PROJECT: "Fovea.xcodeproj"
         XCODE_SCHEME: "Fovea"
-        # Apple ID numerico dell'app, lo trovi nell'URL di App Store Connect
-        # quando apri la scheda dell'app. Sostituiscilo.
-        APP_STORE_APP_ID: 0000000000
+        APP_STORE_APP_ID: 6798842299
 
     triggering:
       events:
@@ -44,40 +34,32 @@ workflows:
         script: |
           xcode-project use-profiles
 
-      # Il numero di build deve superare quello già su TestFlight, altrimenti
-      # l'upload viene rifiutato a fine build — dopo aver speso i minuti.
       - name: Numero di build
         script: |
-          ULTIMO=$(app-store-connect get-latest-testflight-build-number \
-                    "$APP_STORE_APP_ID" 2>/dev/null || echo 0)
-          echo "ultimo su TestFlight: $ULTIMO"
-          agvtool new-version -all $(($ULTIMO + 1))
+          ULTIMO=$(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID" 2>/dev/null || echo 0)
+          NUOVO=$(( ${ULTIMO:-0} + 1 ))
+          echo "=== BUILD NUMBER: $NUOVO ==="
+          python3 -c "
+import re,sys
+p='Fovea.xcodeproj/project.pbxproj'
+t=open(p).read()
+t,n=re.subn(r'CURRENT_PROJECT_VERSION = [0-9]+;','CURRENT_PROJECT_VERSION = '+sys.argv[1]+';',t)
+open(p,'w').write(t)
+print('sostituzioni:', n)
+" $NUOVO
 
       - name: Archivio e ipa
         script: |
-          xcode-project build-ipa \
-            --project "$XCODE_PROJECT" \
-            --scheme "$XCODE_SCHEME"
+          xcode-project build-ipa --project "$XCODE_PROJECT" --scheme "$XCODE_SCHEME"
 
     artifacts:
       - build/ios/ipa/*.ipa
-      # I log servono davvero: sono la ragione per cui sei qui invece che
-      # su Xcode Cloud. Restano scaricabili anche quando la build fallisce.
       - /tmp/xcodebuild_logs/*.log
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
 
     publishing:
       app_store_connect:
         auth: integration
         submit_to_testflight: true
-        # Niente gruppi: la build resta in Internal Testing, la distribuisci
-        # a mano. Per mandarla subito ai tester, scommenta e metti il gruppo.
-        # beta_groups:
-        #   - Amici
-
       email:
         recipients:
-          - tua@email.it
-        notify:
-          success: true
-          failure: true
+          - superdanipro2020@gmail.com
