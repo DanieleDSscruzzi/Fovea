@@ -41,12 +41,17 @@ workflows:
 
       - name: Numero di build
         script: |
-          ULTIMO=$(app-store-connect get-latest-testflight-build-number \
-                    "$APP_STORE_APP_ID" 2>/dev/null || echo 0)
+          ULTIMO=$(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID" 2>/dev/null || echo 0)
           NUOVO=$(( ${ULTIMO:-0} + 1 ))
           echo "=== BUILD NUMBER: $NUOVO ==="
-          sed -i '' "s/CURRENT_PROJECT_VERSION = [0-9]*;/CURRENT_PROJECT_VERSION = $NUOVO;/g" \
-            Fovea.xcodeproj/project.pbxproj
+          python3 -c "
+import re,sys
+p='Fovea.xcodeproj/project.pbxproj'
+t=open(p).read()
+t,n=re.subn(r'CURRENT_PROJECT_VERSION = [0-9]+;', 'CURRENT_PROJECT_VERSION = '+sys.argv[1]+';', t)
+open(p,'w').write(t)
+print('sostituzioni:', n)
+" $NUOVO
           grep CURRENT_PROJECT_VERSION Fovea.xcodeproj/project.pbxproj
 
       - name: Archivio
