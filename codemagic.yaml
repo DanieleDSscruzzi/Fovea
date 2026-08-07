@@ -43,14 +43,11 @@ workflows:
         script: |
           ULTIMO=$(app-store-connect get-latest-testflight-build-number \
                     "$APP_STORE_APP_ID" 2>/dev/null || echo 0)
-          if [ -z "$ULTIMO" ] || [ "$ULTIMO" = "0" ]; then
-            # Se App Store Connect non risponde, uso i minuti trascorsi dal
-            # 2026: numerico, sempre crescente, mai un doppione.
-            ULTIMO=$(( ($(date +%s) - 1767225600) / 60 ))
-          fi
-          NUOVO=$(( ULTIMO + 1 ))
-          echo "=== BUILD NUMBER: $NUOVO (precedente $ULTIMO) ==="
-          agvtool new-version -all $NUOVO
+          NUOVO=$(( ${ULTIMO:-0} + 1 ))
+          echo "=== BUILD NUMBER: $NUOVO ==="
+          sed -i '' "s/CURRENT_PROJECT_VERSION = [0-9]*;/CURRENT_PROJECT_VERSION = $NUOVO;/g" \
+            Fovea.xcodeproj/project.pbxproj
+          grep CURRENT_PROJECT_VERSION Fovea.xcodeproj/project.pbxproj
 
       - name: Archivio
         script: |
