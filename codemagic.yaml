@@ -41,6 +41,12 @@ workflows:
         script: |
           xcodebuild -downloadComponent MetalToolchain
 
+      - name: Pulizia risorse
+        script: |
+          xattr -cr FoveaSafari || true
+          find FoveaSafari -name "._*" -delete || true
+          find . -name ".DS_Store" -delete || true
+
       - name: Archivio e ipa
         script: |
           xcode-project build-ipa --project "$XCODE_PROJECT" --scheme "$XCODE_SCHEME"
