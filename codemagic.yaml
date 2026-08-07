@@ -39,6 +39,19 @@ workflows:
           echo "=== PROFILI PRESENTI ==="
           find ~/Library -name "*.mobileprovision" 2>/dev/null || echo "NESSUNO"
 
+      - name: Numero di build
+        script: |
+          ULTIMO=$(app-store-connect get-latest-testflight-build-number \
+                    "$APP_STORE_APP_ID" 2>/dev/null || echo 0)
+          if [ -z "$ULTIMO" ] || [ "$ULTIMO" = "0" ]; then
+            # Se App Store Connect non risponde, uso i minuti trascorsi dal
+            # 2026: numerico, sempre crescente, mai un doppione.
+            ULTIMO=$(( ($(date +%s) - 1767225600) / 60 ))
+          fi
+          NUOVO=$(( ULTIMO + 1 ))
+          echo "=== BUILD NUMBER: $NUOVO (precedente $ULTIMO) ==="
+          agvtool new-version -all $NUOVO
+
       - name: Archivio
         script: |
           set -e
