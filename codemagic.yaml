@@ -9,6 +9,11 @@ workflows:
 
     environment:
       xcode: 26.4
+      ios_signing:
+        provisioning_profiles:
+          - Fovea
+        certificates:
+          - FoveaCert
       vars:
         BUNDLE_ID: "com.byds.fovea"
         TEAM_ID: "S6C4FQLMT5"
@@ -26,15 +31,9 @@ workflows:
 
       - name: Certificato e profilo
         script: |
-          echo "=== BUNDLE ID VISIBILI ==="
-          app-store-connect list-bundle-ids || echo "ERRORE list-bundle-ids"
-          echo "=== CERTIFICATI ==="
-          app-store-connect list-certificates --type IOS_DISTRIBUTION || echo "ERRORE list-certificates"
-          echo "=== CREO CERTIFICATO ==="
-          app-store-connect create-certificate --type IOS_DISTRIBUTION --save || echo "gia presente o errore"
-          echo "=== SCARICO PROFILO ==="
-          app-store-connect fetch-signing-files "$BUNDLE_ID" --platform IOS --type IOS_APP_STORE --create
           keychain initialize
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --platform IOS --type IOS_APP_STORE --create
           keychain add-certificates
           echo "=== PROFILI PRESENTI ==="
           find ~/Library -name "*.mobileprovision" 2>/dev/null || echo "NESSUNO"
