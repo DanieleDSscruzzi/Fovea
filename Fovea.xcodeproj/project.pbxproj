@@ -45,7 +45,7 @@
 		72520965B2739637F7C9DF4A /* FoveaSafari.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FoveaSafari.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		708568E30D254BDFD94AD764 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
 		01D8F6D627B7D4B025346E2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8989B9CD80FD0379EE33E125 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
+		8989B9CD80FD0379EE33E125 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
