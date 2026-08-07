@@ -2,29 +2,6 @@
 
 App di lettura riservata. Due protezioni indipendenti, entrambe on-device.
 
-## L'estensione Safari è già nel progetto
-
-`FoveaSafari` è un target completo dentro `Fovea.xcodeproj`: handler nativo,
-`Info.plist` con `NSExtension`, cartella `Resources` come folder reference e
-fase "Embed Foundation Extensions" nell'app. Non serve crearlo a mano.
-
-Prima di compilare servono due cose sul portale Apple:
-
-1. **Identifiers** → registra `com.byds.fovea.safari`
-2. **Profiles** → crea un profilo App Store per quel bundle id, chiamalo
-   `FoveaSafari`, scaricalo e caricalo su Codemagic in *Code signing
-   identities*. Poi aggiungilo in `codemagic.yaml`:
-
-```yaml
-        provisioning_profiles:
-          - Fovea
-          - FoveaSafari
-```
-
-Sull'iPhone, dopo l'installazione: **Impostazioni › App › Safari › Estensioni
-› Fovea** → attiva e concedi **Tutti i siti web**. In Safari compare nel menu
-**ᴀA** della barra indirizzi.
-
 ## Avvio
 
 Apri `Fovea.xcodeproj` e premi Run. Non serve altro: target iOS 16, bundle `com.byds.velo`, team `S6C4FQLMT5`, `NSCameraUsageDescription` già scritta nelle build settings (`INFOPLIST_KEY_*`, niente Info.plist da gestire a mano).

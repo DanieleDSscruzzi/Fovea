@@ -22,7 +22,14 @@
 		C1C76DC14F2929411780C61A /* Schermo.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0A13A770F456FCD53B977002 /* Schermo.metal */; };
 		F98054F2C87DFBA3C1256F8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E302583639841BB88528CF6 /* Assets.xcassets */; };
 		AB1556007EE350327F02A39B /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708568E30D254BDFD94AD764 /* SafariWebExtensionHandler.swift */; };
-		806834E4BC5A088D6D38E47A /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 8989B9CD80FD0379EE33E125 /* Resources */; };
+		5CFE38038C478CCC9FFF993B /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = DAD6C6CF1BD1BA511E7BC7D0 /* manifest.json */; };
+		B465AFD25A34C5FDB27FA572 /* fovea.js in Resources */ = {isa = PBXBuildFile; fileRef = A0F9AAACFDF4AC4E04ED279D /* fovea.js */; };
+		DB2B72AB77A730268A2347ED /* fovea.css in Resources */ = {isa = PBXBuildFile; fileRef = 5A439A070A346AC02448DD78 /* fovea.css */; };
+		7EB0D756EF9AC2B81DA838E5 /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = 99D0FEE68E1ADBD43C891489 /* popup.html */; };
+		82CE888658B2BDEA51145543 /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = 7BBF91E2A2B430CA01032005 /* popup.js */; };
+		C08EC5707A1E20531ED8E328 /* images/icona-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 16671C4031CE59ABA56E6DB5 /* images/icona-48.png */; };
+		F839636107D13329AB20AD2A /* images/icona-96.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D8AE37A81A77B236129DBA7 /* images/icona-96.png */; };
+		CFAA965AFB39D38D95CFD482 /* images/icona-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 2318E946F1DCA4746FA5DA4B /* images/icona-128.png */; };
 		7C298BB23BD680F70A210EE9 /* FoveaSafari.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 72520965B2739637F7C9DF4A /* FoveaSafari.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -45,7 +52,14 @@
 		72520965B2739637F7C9DF4A /* FoveaSafari.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FoveaSafari.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		708568E30D254BDFD94AD764 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
 		01D8F6D627B7D4B025346E2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8989B9CD80FD0379EE33E125 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources; sourceTree = "<group>"; };
+		DAD6C6CF1BD1BA511E7BC7D0 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = "manifest.json"; path = "Resources/manifest.json"; sourceTree = "<group>"; };
+		A0F9AAACFDF4AC4E04ED279D /* fovea.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "fovea.js"; path = "Resources/fovea.js"; sourceTree = "<group>"; };
+		5A439A070A346AC02448DD78 /* fovea.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = "fovea.css"; path = "Resources/fovea.css"; sourceTree = "<group>"; };
+		99D0FEE68E1ADBD43C891489 /* popup.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "popup.html"; path = "Resources/popup.html"; sourceTree = "<group>"; };
+		7BBF91E2A2B430CA01032005 /* popup.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "popup.js"; path = "Resources/popup.js"; sourceTree = "<group>"; };
+		16671C4031CE59ABA56E6DB5 /* images/icona-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icona-48.png"; path = "Resources/images/icona-48.png"; sourceTree = "<group>"; };
+		3D8AE37A81A77B236129DBA7 /* images/icona-96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icona-96.png"; path = "Resources/images/icona-96.png"; sourceTree = "<group>"; };
+		2318E946F1DCA4746FA5DA4B /* images/icona-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icona-128.png"; path = "Resources/images/icona-128.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +114,14 @@
 			isa = PBXGroup;
 			children = (
 				708568E30D254BDFD94AD764 /* SafariWebExtensionHandler.swift */,
-				8989B9CD80FD0379EE33E125 /* Resources */,
+				DAD6C6CF1BD1BA511E7BC7D0 /* manifest.json */,
+				A0F9AAACFDF4AC4E04ED279D /* fovea.js */,
+				5A439A070A346AC02448DD78 /* fovea.css */,
+				99D0FEE68E1ADBD43C891489 /* popup.html */,
+				7BBF91E2A2B430CA01032005 /* popup.js */,
+				16671C4031CE59ABA56E6DB5 /* images/icona-48.png */,
+				3D8AE37A81A77B236129DBA7 /* images/icona-96.png */,
+				2318E946F1DCA4746FA5DA4B /* images/icona-128.png */,
 				01D8F6D627B7D4B025346E2C /* Info.plist */,
 			);
 			path = FoveaSafari;
@@ -130,6 +151,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				8DDA6190B044E907F10E9421 /* PBXTargetDependency */,
 			);
 			name = Fovea;
 			productName = Fovea;
@@ -232,7 +254,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				806834E4BC5A088D6D38E47A /* Resources in Resources */,
+				5CFE38038C478CCC9FFF993B /* manifest.json in Resources */,
+				B465AFD25A34C5FDB27FA572 /* fovea.js in Resources */,
+				DB2B72AB77A730268A2347ED /* fovea.css in Resources */,
+				7EB0D756EF9AC2B81DA838E5 /* popup.html in Resources */,
+				82CE888658B2BDEA51145543 /* popup.js in Resources */,
+				C08EC5707A1E20531ED8E328 /* images/icona-48.png in Resources */,
+				F839636107D13329AB20AD2A /* images/icona-96.png in Resources */,
+				CFAA965AFB39D38D95CFD482 /* images/icona-128.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

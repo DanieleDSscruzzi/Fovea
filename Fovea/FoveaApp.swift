@@ -9,11 +9,15 @@ import SwiftUI
 struct FoveaApp: App {
 
     @StateObject private var store = NoteStore()
+    @StateObject private var schermo = SchermoModel()
 
     var body: some Scene {
         WindowGroup {
             HomeView()
                 .environmentObject(store)
+                // Alla radice: la protezione copre ogni schermata dell'app,
+                // non solo la pagina di lettura.
+                .schermo(schermo)
                 .preferredColorScheme(.dark)
                 .tint(Ink.brass)
         }

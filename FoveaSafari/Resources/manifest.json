@@ -4,28 +4,32 @@
   "version": "1.0",
   "description": "Angolo e lente su qualsiasi sito: la pagina si copre quando inclini il telefono, e resta nitida solo dove appoggi il dito.",
   "default_locale": "it",
-
   "icons": {
-    "48": "images/icona-48.png",
-    "96": "images/icona-96.png",
-    "128": "images/icona-128.png"
+    "48": "icona-48.png",
+    "96": "icona-96.png",
+    "128": "icona-128.png"
   },
-
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "48": "images/icona-48.png",
-      "96": "images/icona-96.png"
+      "48": "icona-48.png",
+      "96": "icona-96.png"
     }
   },
-
-  "permissions": ["storage"],
-
+  "permissions": [
+    "storage"
+  ],
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["fovea.js"],
-      "css": ["fovea.css"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "fovea.js"
+      ],
+      "css": [
+        "fovea.css"
+      ],
       "run_at": "document_start",
       "all_frames": false
     }

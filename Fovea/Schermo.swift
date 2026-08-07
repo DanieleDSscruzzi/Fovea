@@ -39,6 +39,13 @@ public final class SchermoModel: ObservableObject {
         didSet { UserDefaults.standard.set(forza, forKey: "fovea.schermo.forza") }
     }
 
+    /// Raggio della sfocatura bersaglio, in punti. Indipendente dalla cella:
+    /// è la larghezza di questa sfocatura a creare la differenza fra
+    /// originale e complemento, cioè tutta la protezione.
+    @Published public var raggio: Double {
+        didSet { UserDefaults.standard.set(raggio, forKey: "fovea.schermo.raggio") }
+    }
+
     /// Se acceso, la cella la detta la distanza misurata da Sguardo.
     @Published public var automatico: Bool {
         didSet { UserDefaults.standard.set(automatico, forKey: "fovea.schermo.auto") }
@@ -52,9 +59,10 @@ public final class SchermoModel: ObservableObject {
     public init() {
         let d = UserDefaults.standard
         attivo = d.object(forKey: "fovea.schermo.attivo") as? Bool ?? true
-        cellaPixel = d.object(forKey: "fovea.schermo.cella") as? Double ?? 3
-        forza = d.object(forKey: "fovea.schermo.forza") as? Double ?? 0.85
-        automatico = d.object(forKey: "fovea.schermo.auto") as? Bool ?? true
+        cellaPixel = d.object(forKey: "fovea.schermo.cella") as? Double ?? 2
+        forza = d.object(forKey: "fovea.schermo.forza") as? Double ?? 1.0
+        raggio = d.object(forKey: "fovea.schermo.raggio") as? Double ?? 7
+        automatico = d.object(forKey: "fovea.schermo.auto") as? Bool ?? false
     }
 
     /// Distanza oltre la quale la scacchiera si fonde, per un occhio con
@@ -80,7 +88,7 @@ public struct SchermoModifier: ViewModifier {
         // conversione passa da displayScale, altrimenti su un iPhone 3x la
         // scacchiera verrebbe tre volte più grossa del previsto e si vedrebbe.
         let cellaPunti = model.cellaAttiva / scala
-        let raggio = max(cellaPunti, 0.4)
+        let raggio = max(model.raggio, 2)
 
         return content
             .layerEffect(
@@ -89,6 +97,7 @@ public struct SchermoModifier: ViewModifier {
                     .float(Float(raggio)),
                     .float(enabled && model.attivo ? Float(model.forza) : 0)
                 ),
+                // Deve coprire il campione più lontano: 2 passi da raggio/2.
                 maxSampleOffset: CGSize(width: raggio, height: raggio)
             )
             .animation(.easeOut(duration: 0.25), value: model.attivo)
@@ -154,6 +163,15 @@ public struct TaraturaSchermo: View {
                 Slider(value: $model.forza, in: 0.3...1.0)
                     .tint(Ink.brass)
                 Text("forza — alza se da lontano si legge ancora")
+                    .font(.signal)
+                    .foregroundStyle(Ink.muted)
+            }
+
+            VStack(spacing: 5) {
+                Slider(value: $model.raggio, in: 3...14, step: 1)
+                    .tint(Ink.brass)
+                Text(String(format: "sfocatura %.0f pt — quanto è illeggibile da lontano",
+                            model.raggio))
                     .font(.signal)
                     .foregroundStyle(Ink.muted)
             }
