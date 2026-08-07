@@ -37,12 +37,12 @@ workflows:
           keychain initialize
           keychain add-certificates
           echo "=== PROFILI PRESENTI ==="
-          ls -1 ~/Library/MobileDevice/Provisioning\ Profiles/ || echo "NESSUNO"
+          find ~/Library -name "*.mobileprovision" 2>/dev/null || echo "NESSUNO"
 
       - name: Archivio
         script: |
           set -e
-          PROF=$(ls ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision | head -1)
+          PROF=$(find ~/Library -name "*.mobileprovision" 2>/dev/null | head -1)
           NOME=$(security cms -D -i "$PROF" | plutil -extract Name raw -)
           echo "=== USO IL PROFILO: $NOME ==="
           echo "$NOME" > /tmp/nome_profilo
