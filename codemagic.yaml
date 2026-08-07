@@ -12,6 +12,7 @@ workflows:
       ios_signing:
         provisioning_profiles:
           - Fovea
+          - FoveaSafari
         certificates:
           - FoveaCert
       vars:
