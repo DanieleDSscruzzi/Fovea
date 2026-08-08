@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Fovea",
   "version": "1.0",
-  "description": "Angolo e lente su qualsiasi sito: la pagina si copre quando inclini il telefono, e resta nitida solo dove appoggi il dito.",
+  "description": "Lente e soglia su qualsiasi sito: nitido solo dove appoggi il dito.",
   "default_locale": "it",
   "icons": {
     "48": "icona-48.png",
